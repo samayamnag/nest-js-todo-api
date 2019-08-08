@@ -24,6 +24,7 @@ export class ConfigService {
                 .valid(['development', 'production', 'test', 'provision'])
                 .default('development'),
             APP_PORT: Joi.number().default(3000),
+            MONGO_URI: Joi.string().required(),
         });
 
         const { error, value: validatedEnvConfig } = Joi.validate(
@@ -42,5 +43,9 @@ export class ConfigService {
 
     get appPort(): number {
         return Number(this.envConfig.APP_PORT);
+    }
+
+    get mongoURI(): string {
+        return this.envConfig.MONGO_URI;
     }
 }
